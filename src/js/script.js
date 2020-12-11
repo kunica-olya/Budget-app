@@ -26,6 +26,10 @@ monthValue = document.querySelector('.month-value'),
 
 let money, time;
 
+expensesBtn.disabled = true;
+optionalExpensesBtn.disabled = true;
+countBtn.disabled = true;
+
 
 startBtn.addEventListener('click', function () {
     time = prompt("Введите дату в формате YYYY-MM-DD");
@@ -45,6 +49,10 @@ startBtn.addEventListener('click', function () {
     yearValue.value = new Date(Date.parse(time)).getFullYear();
     monthValue.value = new Date(Date.parse(time)).getMonth() + 1;
     dayValue.value = new Date(Date.parse(time)).getDate();
+
+    expensesBtn.disabled = true;
+    optionalExpensesBtn.disabled = true;
+    countBtn.disabled = true;
 });
 
 
@@ -78,10 +86,10 @@ optionalExpensesBtn.addEventListener('click', function () {
 });
 
 
-countBtn.addEventListener('click', function () {
+countBtn.addEventListener('click', function () { // Расчет дневного бюджета
 
     if (appData.budget != undefined) {
-        appData.moneyPerDay = (appData.budget / 30).toFixed();
+        appData.moneyPerDay = ((appData.budget - +expensesValue.textContent) / 30).toFixed();
         // toFixed - метод,преобразовывает значение
         // следует запомнить что , toFixed меняет нашу переменную, возвращает строковое значение!!!
 
@@ -182,7 +190,4 @@ let appData = {
     income: [],
     savings: false
 };
-
-
-
 
